@@ -73,3 +73,13 @@ By filtering to the group `temperature`, only commands are executed, which are a
 # Contribution
 
 As I have only one heating system at home, there is no possibility to add commands to the library, which don't work on my own heating system. So if you've identified commands, that are not initially included, open an issue and let me know to create a helpful library for all of the people out there, that don't have a fancy smart home heating control system. 
+
+# Bugs/Issues
+
+Please report any issues you find. I'll try to fix them asap.
+
+# Donations
+
+If you like my work and would like to support me, feel free to by me a cup of coffee.
+
+<a href="https://www.buymeacoffee.com/tsvsj" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
