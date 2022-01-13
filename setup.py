@@ -2,26 +2,28 @@ from setuptools import setup, find_packages
 import pathlib
 
 here = pathlib.Path(__file__).parent.resolve()
-long_description = (here / 'README.md')
+with open((here / 'README.md'), 'r') as fh:
+    long_description = fh.read()
 
 setup(
     name='pyvcontrold-net',
     description='A small library to interact with vcontrold (openv).',
-    version='0.0.1',
+    version='1.0.0',
     author='Sven Schaefer',
     author_email='tsvsjoj@gamil.com',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/tsvsj/pyvcontrold',
+    url='https://github.com/tsvsj/pyvcontrold-net',
     project_urls={
-        'Bug Reports': 'https://github.com/tsvsj/pyvcontrold/issues',
+        'Bug Reports': 'https://github.com/tsvsj/pyvcontrold-net/issues',
         'Donating': 'https://www.buymeacoffee.com/tsvsj',
         'Say Thanks!': 'https://saythanks.io/to/tsvsj',
-        'Source': 'https://github.com/tsvsj/pyvcontrold',
+        'Source': 'https://github.com/tsvsj/pyvcontrold-net',
     },
-    license='',
+    license='Apache-2.0',
     classifiers=[
         'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',

@@ -5,6 +5,8 @@ import socket
 import time
 import csv
 import tempfile
+import pathlib
+import sys
 
 from .vcontrold_config import vcdConfig
 
@@ -18,6 +20,8 @@ class vcontrold:
             port (int): Port, on which vcontrold listens
             timeout (int): Timeout in seconds to establish a tcp connection. Defaults to 10.
         """
+        # Logging
+        self.logging_quiet = False
 
         # Connection
         self.host = host
@@ -26,7 +30,8 @@ class vcontrold:
         self._connect()
 
         # Load config
-        self.config_manager = vcdConfig()
+        project_path = pathlib.Path(sys.modules['__main__'].__file__).parent.resolve()
+        self.config_manager = vcdConfig(file=str((project_path / "vcontrold_config.yml")))
         self.config = self.config_manager.get_config()
 
         # Heating control system initialization
@@ -185,14 +190,16 @@ class vcontrold:
                 device_model, device_id, device_protocol = hcs.split(" ")
                 device_id = device_id.split("=")[1]
                 device_protocol = device_protocol.split(":")[1]
-                print(f"Device correctly identified as model {device_model} (ID={device_id}, Protocol={device_protocol}) at attempt {loop_count} of {max_loop_count}")
+                if self.logging_quiet is False:
+                    print(f"Device correctly identified as model {device_model} (ID={device_id}, Protocol={device_protocol}) at attempt {loop_count} of {max_loop_count}")
                 self.device_model = device_model
                 self.device_id = int(device_id)
                 self.device_protocol = device_protocol
                 # Exit if identified correctly
                 break
             else:
-                print(f"Failed to identify heating control system. Returned data doesn't meet expectations. Attempt {loop_count} of {max_loop_count}")
+                if self.logging_quiet is False:
+                    print(f"Failed to identify heating control system. Returned data doesn't meet expectations. Attempt {loop_count} of {max_loop_count}")
                 loop_count += 1
 
         return True
@@ -205,7 +212,8 @@ class vcontrold:
         """
         data = self._sock.recv(1000)
         if data.decode('utf-8') != 'vctrld>':
-            print(f"Returned data is unexpected. Prompt 'vctrld>' expected, but received '{data}'")
+            if self.logging_quiet is False:
+                print(f"Returned data is unexpected. Prompt 'vctrld>' expected, but received '{data}'")
             return False
 
         return True
@@ -226,10 +234,12 @@ class vcontrold:
         execute_command_state = "success"
 
         if self.config['vcontrold_commands']['get'][command]['status'] == "disabled":
-            print(f"Command {command} is disabled and skipped.")
+            if self.logging_quiet is False:
+                print(f"Command {command} is disabled and skipped.")
             return False
         elif self.device_id not in self.config['vcontrold_commands']['get'][command]['devices']:
-            print(f"Command {command} is not available for device ID {self.device_id} and skipped (available device IDs: {self.config['vcontrold_commands']['get'][command]['devices']}).")
+            if self.logging_quiet is False:
+                print(f"Command {command} is not available for device ID {self.device_id} and skipped (available device IDs: {self.config['vcontrold_commands']['get'][command]['devices']}).")
             return False
         else:
             self._read_prompt()
@@ -244,12 +254,14 @@ class vcontrold:
                 data = ""
                 execute_command_state = "failed"
             elif "command unknown" in data:
-                print(f"command {command} is unknown")
+                if self.logging_quiet is False:
+                    print(f"command {command} is unknown")
                 self._disable_command(command)
                 data = ""
                 execute_command_state = "failed"
             elif "Wrong result, terminating" in data:
-                print(f"{command}: Failed to execute temporarily. Please restart.")
+                if self.logging_quiet is False:
+                    print(f"{command}: Failed to execute temporarily. Please retry to get the value.")
                 data = ""
                 execute_command_state = "failed_temporarily"
 
@@ -390,22 +402,65 @@ class vcontrold:
         self.filter_group = None
         return True
 
-    def get_viessmann_data(self):
+    def get_viessmann_data(self, max_values: int = None):
         """Requests and returns the actual data from vcontrold.
+
+        Args:
+            max_values (int): Return a maximum of max_values, instead of all values from a group or all. This is used to simply execute a test without waiting a long time until a group is completely executed.
 
         Returns:
             mixed: Returns data based on self.output_format. Defaults to JSON.
 
         """
         time_start = time.time()
+
+        # Get the total number of executed commands
+        commands_to_be_executed = []
         for command, params in self.config["vcontrold_commands"]['get'].items():
             if params["status"] == "enabled":
                 if self.filter_group is not None:
                     if self.filter_group not in params['groups']:
                         continue
+                commands_to_be_executed.append(command)
 
-                self._read(command=command)
+        num_commands = len(commands_to_be_executed)
+        if max_values is not None:
+            if max_values < num_commands:
+                if max_values != 0:
+                    if self.logging_quiet is False:
+                        print(f"Limited the maximum returned values to {max_values}.")
+                    num_commands = max_values
+                else:
+                    if self.logging_quiet is False:
+                        print(f"Option 'max_values' is 0. This is interpreted as 'any'. Ignoring 'max_values'.")
+            else:
+                if self.logging_quiet is False:
+                    print(f"Option 'max_values' ({max_values}) is greater than the number of commands to be executed ({commands_to_be_executed}). Ignoring 'max_values'.")
+
+
+        loop_count = 1
+
+        for command in commands_to_be_executed:
+            if self.logging_quiet is False:
+                # Write stdout
+                sys.stdout.write(f"\rExecuting command {loop_count:02d} of {num_commands:02d} ({command:s})...")
+                # Flush stdout
+                sys.stdout.flush()
+
+            # Execute the command
+            self._read(command=command)
+
+
+
+            if loop_count >= num_commands:
                 break
+
+            loop_count += 1
+
+        if self.logging_quiet is False:
+            print("")
+            print("-------------------------------")
+
 
         time_end = time.time()
         duration = round(time_end - time_start, 3)

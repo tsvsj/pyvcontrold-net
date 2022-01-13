@@ -1,0 +1,4 @@
+/dist/
+/build/
+/src/pyvcontrold_net.egg-info
+*_config.yml
