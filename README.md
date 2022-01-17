@@ -35,7 +35,7 @@ To use vcontrold you need to import the module vcontrold from the package vcontr
 
 This will connect to you vcontold, execute all of the available commands and return the result as JSON.
 
-For more information refer to the [Documentation](docs/index.html)
+For more information refer to the [Documentation](https://tsvsj.github.io/pyvcontrold-net/)
 
 ## Contribution
 
