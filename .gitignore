@@ -2,3 +2,7 @@
 /build/
 /src/pyvcontrold_net.egg-info
 *_config.yml
+/docs/source/
+/docs/build/
+/docs/make*
+/docs/Make*

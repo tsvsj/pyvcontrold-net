@@ -247,25 +247,25 @@ vcontrold_commands:
       groups: ['system']
       devices: [2094]
     getTempA:
-      description: Ermittle die Aussentemeratur in Grad C
+      description: Ermittle die Aussentemperatur
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempKist:
-      description: Ermittle die Kesseltemperatur in Grad C
+      description: Ermittle die Kesseltemperatur
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempKol:
-      description: Ermittle die Kollektortemperatur in Grad C
+      description: Ermittle die Kollektortemperatur
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempKsoll:
-      description: Ermittle die Kesselsolltemperatur in Grad C
+      description: Ermittle die Kesselsolltemperatur
       status: enabled
       unit: temperature
       groups: ['temperature']
@@ -283,73 +283,73 @@ vcontrold_commands:
       groups: ['temperature']
       devices: [2094]
     getTempRaumNorSollM1:
-      description: Ermittle die Raumsolltemperatur normal M1 in Grad C
+      description: Ermittle die Raumsolltemperatur normal M1
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempRaumNorSollM2:
-      description: Ermittle die Raumsolltemperatur normal M2 in Grad C
+      description: Ermittle die Raumsolltemperatur normal M2
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempRaumRedSollM1:
-      description: Ermittle die Raumsolltemperatur reduziert M1 in Grad C
+      description: Ermittle die Raumsolltemperatur reduziert M1
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempRaumRedSollM2:
-      description: Ermittle die Raumsolltemperatur reduziert M2 in Grad C
+      description: Ermittle die Raumsolltemperatur reduziert M2
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempSpu:
-      description: Ermittle die Speichertemperatur unten in Grad C
+      description: Ermittle die Speichertemperatur unten
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempVListM1:
-      description: Ermittle die Vorlauftemperatur M1 in Grad C
+      description: Ermittle die Vorlauftemperatur M1
       status: disabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempVListM2:
-      description: Ermittle die Vorlauftemperatur M2 in Grad C
+      description: Ermittle die Vorlauftemperatur M2
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempVLsollM1:
-      description: Ermittle die Vorlaufsolltemperatur M1 in Grad C
+      description: Ermittle die Vorlaufsolltemperatur M1
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempVLsollM2:
-      description: Ermittle die Vorlaufsolltemperatur M2 in Grad C
+      description: Ermittle die Vorlaufsolltemperatur M2
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempVLsollM3:
-      description: Ermittle die Vorlaufsolltemperatur M3 in Grad C
+      description: Ermittle die Vorlaufsolltemperatur M3
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempWWist:
-      description: Ermittle die Warmwassertemperatur in Grad C
+      description: Ermittle die Warmwassertemperatur
       status: enabled
       unit: temperature
       groups: ['temperature']
       devices: [2094]
     getTempWWsoll:
-      description: Ermittle die Warmwassersolltemperatur in Grad C
+      description: Ermittle die Warmwassersolltemperatur
       status: enabled
       unit: temperature
       groups: ['temperature']
@@ -584,31 +584,31 @@ vcontrold_commands:
       groups: []
       devices: [2094]
     setTempPartyM1:
-      description: Setze die Warmwassersolltemperatur Party M1 in Grad C
+      description: Setze die Warmwassersolltemperatur Party M1
       status: enabled
       unit: temperature
       groups: []
       devices: [2094]
     setTempPartyM2:
-      description: Setze die Warmwassersolltemperatur Party M2 in Grad C
+      description: Setze die Warmwassersolltemperatur Party M2
       status: enabled
       unit: temperature
       groups: []
       devices: [2094]
     setTempRaumNorSollM1:
-      description: Setze die Raumsolltemperatur normal M1 in Grad C
+      description: Setze die Raumsolltemperatur normal M1
       status: enabled
       unit: temperature
       groups: []
       devices: [2094]
     setTempRaumRedSollM1:
-      description: Setze die Raumsolltemperatur reduziert M1 in Grad C
+      description: Setze die Raumsolltemperatur reduziert M1
       status: enabled
       unit: temperature
       groups: []
       devices: [2094]
     setTempWWsoll:
-      description: Setze die Warmwassersolltemperatur in Grad C
+      description: Setze die Warmwassersolltemperatur
       status: enabled
       unit: temperature
       groups: []

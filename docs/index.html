@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>pyvcontrold-net &#8212; pyvcontrold-net 2.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">pyvcontrold-net 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyvcontrold-net</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="pyvcontrold-net">
+<h1>pyvcontrold-net<a class="headerlink" href="#pyvcontrold-net" title="Permalink to this headline">¶</a></h1>
+<img alt="https://img.shields.io/github/last-commit/tsvsj/pyvcontrold-net?style=flat-square:alt:GitHublastcommit" src="https://img.shields.io/github/last-commit/tsvsj/pyvcontrold-net?style=flat-square:alt:GitHublastcommit" />
+<img alt="https://img.shields.io/github/license/tsvsj/pyvcontrold-net?style=flat-square:alt:GitHub" src="https://img.shields.io/github/license/tsvsj/pyvcontrold-net?style=flat-square:alt:GitHub" />
+<img alt="https://img.shields.io/pypi/dm/pyvcontrold-net?style=flat-square:alt:PyPI-Downloads" src="https://img.shields.io/pypi/dm/pyvcontrold-net?style=flat-square:alt:PyPI-Downloads" />
+<img alt="https://img.shields.io/pypi/v/pyvcontrold-net?style=flat-square:alt:PyPI" src="https://img.shields.io/pypi/v/pyvcontrold-net?style=flat-square:alt:PyPI" />
+<img alt="https://img.shields.io/pypi/pyversions/pyvcontrold-net?style=flat-square:alt:PyPI-PythonVersion" src="https://img.shields.io/pypi/pyversions/pyvcontrold-net?style=flat-square:alt:PyPI-PythonVersion" />
+<img alt="https://img.shields.io/pypi/status/pyvcontrold-net?style=flat-square:alt:PyPI-Status" src="https://img.shields.io/pypi/status/pyvcontrold-net?style=flat-square:alt:PyPI-Status" />
+<p>This is a simple library to interact with vcontrold (<a class="reference external" href="https://github.com/openv/vcontrold">&#64;openv/vcontrold</a>), the open-source daemon to communicate with Viessmann Vitotronic via Optolink. Documentation for vcontrold itself can be found at <a class="reference external" href="https://github.com/openv/openv/wiki">&#64;openv/openv Wiki</a>.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vcontrold.html">vcontrold package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+</div>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Use <cite>pip</cite> to install the pyvcontrold-net package.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>pip install pyvcontrold-net
+</pre></div>
+</div>
+<p>After the installation is done, you can import the package and create an instance of <cite>vcontrold</cite>.</p>
+</section>
+<section id="basic-usage">
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<p>To use vcontrold you need to import the module <cite>vcontrold</cite> from the package <cite>vcontrold</cite>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You need to know your <em>device ID</em>. If you don’t already know it, use <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.device_id" title="vcontrold.vcontrold.vcontrold.device_id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device_id</span></code></a> to find the device ID of your heating control system. If your device ID is not listed in the <code class="docutils literal notranslate"><span class="pre">devices</span></code> node within <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code>, you need to add it (or replace the existing) to each command. Otherwise no command will be processed!</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vcontrold</span> <span class="kn">import</span> <span class="n">vcontrold</span>
+<span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="o">.</span><span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">vcd</span><span class="o">.</span><span class="n">get_viessmann_data</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>This will connect to you vcontold, execute all of the available commands and return the result as JSON.</p>
+<p>More examples can be found in <a class="reference internal" href="usage.html"><span class="doc">Usage</span></a></p>
+</section>
+<section id="contribution">
+<h2>Contribution<a class="headerlink" href="#contribution" title="Permalink to this headline">¶</a></h2>
+<p>As I have only one heating system at home, there is no possibility to add commands to the library, which don’t work on my own heating system. So if you’ve identified commands, that are not initially included, open an issue and let me know to create a helpful library for all of the people out there, that don’t have a fancy smart home heating control system.</p>
+</section>
+<section id="bugs-issues">
+<h2>Bugs/Issues<a class="headerlink" href="#bugs-issues" title="Permalink to this headline">¶</a></h2>
+<p>Please report any issues you find. I’ll try to fix them asap.</p>
+</section>
+<section id="donations">
+<h2>Donations<a class="headerlink" href="#donations" title="Permalink to this headline">¶</a></h2>
+<p>If you like my work and would like to support me, feel free to by me a cup of coffee.</p>
+<a class="reference external image-reference" href="https://www.buymeacoffee.com/tsvsj"><img alt="Buy Me A Coffee" src="https://cdn.buymeacoffee.com/buttons/v2/default-green.png" style="height: 50px;" /></a>
+</section>
+<section id="disclaimer">
+<h2>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this headline">¶</a></h2>
+<p>I’m not responsible for the usage of this program by any other people. The software shouldn’t harm the heater control in any way, but be aware, that there are official solutions from Viessmann, that can be purchased and safely used.</p>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="#">Documentation</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vcontrold.html">vcontrold package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+  <h3><a href="#">Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">pyvcontrold-net</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+<li><a class="reference internal" href="#contribution">Contribution</a></li>
+<li><a class="reference internal" href="#bugs-issues">Bugs/Issues</a></li>
+<li><a class="reference internal" href="#donations">Donations</a></li>
+<li><a class="reference internal" href="#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">pyvcontrold-net 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pyvcontrold-net</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, tsvsj
+    </div>
+  </body>
+</html>

@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>vcontrold package &#8212; pyvcontrold-net 2.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="changelog.html" title="Changelog"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyvcontrold-net 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">vcontrold package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="vcontrold-package">
+<h1>vcontrold package<a class="headerlink" href="#vcontrold-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-vcontrold.vcontrold">
+<span id="vcontrold-vcontrold-module"></span><h2>vcontrold.vcontrold module<a class="headerlink" href="#module-vcontrold.vcontrold" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">vcontrold.vcontrold.</span></span><span class="sig-name descname"><span class="pre">vcontrold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_debug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vcontrold.vcontrold.vcontrold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to interact with vcontrold via network.</p>
+<p>During the initialization the connection to vcontrold is made automatically. After the connection is established,
+the command <code class="docutils literal notranslate"><span class="pre">getDevType</span></code> is executed to identify the current heating control system. This will create the properties
+<a class="reference internal" href="#vcontrold.vcontrold.vcontrold.device_model" title="vcontrold.vcontrold.vcontrold.device_model"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device_model</span></code></a>, <a class="reference internal" href="#vcontrold.vcontrold.vcontrold.device_id" title="vcontrold.vcontrold.vcontrold.device_id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device_id</span></code></a>, <a class="reference internal" href="#vcontrold.vcontrold.vcontrold.device_protocol" title="vcontrold.vcontrold.vcontrold.device_protocol"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device_protocol</span></code></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Outputs to <em>stdout</em> are disabled by default, as it is assumed, that the module will be used within projects,
+where only the pure data is relevant. If you use the module for other purposes, it could make sense to enable
+informational logging, by calling with <code class="docutils literal notranslate"><span class="pre">log_info=True</span></code>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<em>str</em>) – vcontrold IP address or hostname</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – Port, on which vcontrold listens</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) – Timeout in seconds to establish a tcp connection. Defaults to 10.</p></li>
+<li><p><strong>log_info</strong> (<em>bool</em>) – Write informational logs to <em>stdout</em>. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>log_debug</strong> (<em>bool</em>) – Write debug logs to <em>stdout</em>. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<ul class="simple">
+<li><p>Multi-language support (at least english)</p></li>
+<li><p>Caching for returned data</p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.get_groups">
+<span class="sig-name descname"><span class="pre">get_groups</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.get_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code>: Get the groups, configured in the configuration file.</p>
+<p>The returned groups can be used in <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code> to modify existing
+group assignments or to create your own groups. Within <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code>
+you can add custom groups or replace existing ones with your own, if you’re not
+happy with the pre-defined groups.</p>
+<p>Refer to the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of sorted groups, found in the configuration file.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_groups</span><span class="p">()</span>
+<span class="go">[&#39;burner&#39;, &#39;environment&#39;, &#39;error&#39;, &#39;mixer&#39;, &#39;operation-mode&#39;, &#39;power&#39;, &#39;pumps&#39;, &#39;solar&#39;, &#39;stats&#39;, &#39;system&#39;, &#39;temperature&#39;, &#39;timer&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.get_items_per_group">
+<span class="sig-name descname"><span class="pre">get_items_per_group</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.get_items_per_group" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>: Get the groups with all assigned commands.</p>
+<p>The returned groups contain commands, which are assigned to the group. This
+is meant to be helpful for you, to create you own overview of the groups and
+assigned commands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Contains groups as items, with assigned commands.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_items_per_group</span><span class="p">()</span>
+<span class="go">{</span>
+<span class="go">    &quot;burner&quot;: {</span>
+<span class="go">        &quot;num_items&quot;: 4,</span>
+<span class="go">        &quot;items&quot;: [</span>
+<span class="go">            &quot;getBrennerStarts&quot;,</span>
+<span class="go">            &quot;getBrennerStatus&quot;,</span>
+<span class="go">            &quot;getBrennerStunden1&quot;,</span>
+<span class="go">            &quot;getBrennerStunden2&quot;</span>
+<span class="go">        ]</span>
+<span class="go">    },</span>
+<span class="go">    &quot;environment&quot;: {</span>
+<span class="go">        &quot;num_items&quot;: 4,</span>
+<span class="go">        &quot;items&quot;: [</span>
+<span class="go">            &quot;getNeigungM1&quot;,</span>
+<span class="go">            &quot;getNeigungM2&quot;,</span>
+<span class="go">            &quot;getNiveauM1&quot;,</span>
+<span class="go">            &quot;getNiveauM2&quot;</span>
+<span class="go">        ]</span>
+<span class="go">    },</span>
+<span class="go">    ...</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.get_units">
+<span class="sig-name descname"><span class="pre">get_units</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.get_units" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code>: Get the units, configured in the configuration file.</p>
+<p>Be aware that the returned unit names are used internally, to sanitize the returned
+data and identify the real unit of measurement.</p>
+<p>The use of this command is only to modify units in <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code>, if necessary.
+If you don’t see a problem with the pre-defined units, don’t change them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of sorted units, found in the configuration file.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_units</span><span class="p">()</span>
+<span class="go">[&#39;error&#39;, &#39;hours&#39;, &#39;none&#39;, &#39;number&#39;, &#39;percent&#39;, &#39;power&#39;, &#39;shift&#39;, &#39;slope&#39;, &#39;switch&#39;, &#39;temperature&#39;, &#39;text&#39;, &#39;time&#39;, &#39;timer&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.get_viessmann_data">
+<span class="sig-name descname"><span class="pre">get_viessmann_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.get_viessmann_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requests and returns the actual data from vcontrold.</p>
+<p>This method uses <a class="reference internal" href="#vcontrold.vcontrold.vcontrold.groups" title="vcontrold.vcontrold.vcontrold.groups"><code class="xref py py-meth docutils literal notranslate"><span class="pre">groups()</span></code></a> to filter the executed commands, if defined. Otherwise,
+all available commands are executed.</p>
+<p>The argument <code class="docutils literal notranslate"><span class="pre">max_values</span></code> is intended for testing purposes, where you want to query a group
+of commands, but don’t want to wait until all commands are executed, because you only need an example
+of the returned data. I’ve used this extensively while sanitizing the returned data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please be informed, that vcontrold takes some time, until an executed command returns any data.
+Each command will approximately need 2.5 seconds to complete. If all available commands are
+executed, the whole process can take several minutes, untils the reponse is generated. You should
+consider this when thinking about timeouts or max execution times.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>max_values</strong> (<em>int</em>) – Max number of executed commands.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns data based on self.output_format. Defaults to JSON.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mixed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.unset_group">
+<span class="sig-name descname"><span class="pre">unset_group</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.unset_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the group filter to any.</p>
+<p>Resets the group to any, if a group filter was previously defined with <a class="reference internal" href="#vcontrold.vcontrold.vcontrold.groups" title="vcontrold.vcontrold.vcontrold.groups"><code class="xref py py-meth docutils literal notranslate"><span class="pre">groups()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.csv_delimiter">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">csv_delimiter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.csv_delimiter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the delimiter character for CSV output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>delimiter</strong> (<em>str</em>) – Defaults to <code class="docutils literal notranslate"><span class="pre">,</span></code>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The current setting.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Avoid the use of CSV output in <a class="reference internal" href="#vcontrold.vcontrold.vcontrold.output_format" title="vcontrold.vcontrold.vcontrold.output_format"><code class="xref py py-meth docutils literal notranslate"><span class="pre">output_format()</span></code></a>. It will be completely removed in version 3.0.0.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.csv_linebreak">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">csv_linebreak</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.csv_linebreak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the linebreak sequence for CSV output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>linebreak</strong> (<em>str</em>) – Defaults to <code class="docutils literal notranslate"><span class="pre">\n</span></code>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The current setting.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Avoid the use of CSV output in <a class="reference internal" href="#vcontrold.vcontrold.vcontrold.output_format" title="vcontrold.vcontrold.vcontrold.output_format"><code class="xref py py-meth docutils literal notranslate"><span class="pre">output_format()</span></code></a>. It will be completely removed in version 3.0.0.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.device_id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.device_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identified heating device ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Heating control system device ID.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.0: </span>Replaced the previous method <code class="docutils literal notranslate"><span class="pre">get_device_id</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.device_model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.device_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identified heating device model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Heating control system model.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.0: </span>Replaced the previous method <code class="docutils literal notranslate"><span class="pre">get_device_model</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.device_protocol">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_protocol</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.device_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identified heating communication protocol, used to communicate via Optolink.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Heating control system communication protocol.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.0: </span>Replaced the previous method <code class="docutils literal notranslate"><span class="pre">get_device_protocol</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.exclude_timers">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exclude_timers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.exclude_timers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls if the returned data contains meta information about
+the execution time of each command and a global timer for the whole process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>exclude_timers</strong> (<em>bool</em><em>, </em><em>optional</em>) – Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The current setting.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.groups">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">groups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls the group filter to a specific group or list of groups.</p>
+<p><a class="reference internal" href="#vcontrold.vcontrold.vcontrold.groups" title="vcontrold.vcontrold.vcontrold.groups"><code class="xref py py-meth docutils literal notranslate"><span class="pre">groups()</span></code></a> filters the commands, executed when <a class="reference internal" href="#vcontrold.vcontrold.vcontrold.get_viessmann_data" title="vcontrold.vcontrold.vcontrold.get_viessmann_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_viessmann_data()</span></code></a> is called,
+by the applied group or list of groups.</p>
+<p>The group assignments in <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code> are made for this filter method.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can provide either a single group (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) or a list of groups (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code>). I would
+recommend to always use the <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code> type, as the single group selector may be removed
+in future versions.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>group</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code>) – Group to filter commands. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The current list of groups to filter.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.0: </span>Replaces previous method <code class="docutils literal notranslate"><span class="pre">set_group</span></code>. Accepts <code class="docutils literal notranslate"><span class="pre">list</span></code> instead of only a single group name. Returns always <cite>list</cite>, if defined.</p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.output_format">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output_format</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.output_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls the output format of <a class="reference internal" href="#vcontrold.vcontrold.vcontrold.get_viessmann_data" title="vcontrold.vcontrold.vcontrold.get_viessmann_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_viessmann_data()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fmt</strong> (<em>str</em><em>, </em><em>optional</em>) – Output format. Defaults to <cite>json</cite>.
+Supported formats: <cite>json</cite>, <cite>dict</cite>, <cite>csv</cite></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The current output format.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">output_format</span>
+<span class="go">json</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">output_format</span> <span class="o">=</span> <span class="s2">&quot;dict&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">switch_as_bool</span>
+<span class="go">dict</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.0: </span>Replaced the previous method <code class="docutils literal notranslate"><span class="pre">set_output_format</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.switch_as_bool">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">switch_as_bool</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.switch_as_bool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls the returned type for command units of type <em>switch</em>. <code class="docutils literal notranslate"><span class="pre">True</span></code> will return a <em>bool</em>
+value to signal whether something is on or off, while <code class="docutils literal notranslate"><span class="pre">False</span></code> returns <em>on</em>/<em>off</em> as <em>str</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>use_bool_return</strong> (<em>bool</em><em>, </em><em>optional</em>) – Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The current setting.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">switch_as_bool</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">switch_as_bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">switch_as_bool</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="vcontrold.vcontrold.vcontrold.use_fahrenheit">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_fahrenheit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#vcontrold.vcontrold.vcontrold.use_fahrenheit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the temperature output to Fahrenheit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>use_fahrenheit</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use Fahrenheit or not. Defaults to <cite>False</cite>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The current value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 2.0.0.</span></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-vcontrold">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-vcontrold" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Documentation</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">vcontrold package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+  <h3><a href="index.html">Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">vcontrold package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-vcontrold.vcontrold">vcontrold.vcontrold module</a></li>
+<li><a class="reference internal" href="#module-vcontrold">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="changelog.html" title="Changelog"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyvcontrold-net 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">vcontrold package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, tsvsj
+    </div>
+  </body>
+</html>

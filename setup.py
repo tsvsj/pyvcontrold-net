@@ -8,7 +8,7 @@ with open((here / 'README.md'), 'r') as fh:
 setup(
     name='pyvcontrold-net',
     description='A small library to interact with vcontrold (openv).',
-    version='1.0.0',
+    version='2.0.0',
     author='Sven Schaefer',
     author_email='tsvsjoj@gamil.com',
     long_description=long_description,
@@ -22,7 +22,7 @@ setup(
     },
     license='Apache-2.0',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',

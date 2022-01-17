@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Usage &#8212; pyvcontrold-net 2.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="pyvcontrold-net" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="pyvcontrold-net"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyvcontrold-net 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Usage</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<section id="quickstart">
+<h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You need to know your <em>device ID</em>. If you don’t already know it, use <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.device_id" title="vcontrold.vcontrold.vcontrold.device_id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device_id</span></code></a> to find the device ID of your heating control system. If your device ID is not listed in the <code class="docutils literal notranslate"><span class="pre">devices</span></code> node within <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code>, you need to add it (or replace the existing) to each command. Otherwise no command will be processed!</p>
+</div>
+<p>Just import the class <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold" title="vcontrold.vcontrold.vcontrold"><code class="xref py py-class docutils literal notranslate"><span class="pre">vcontrold</span></code></a>, create an instance and fire <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.get_viessmann_data" title="vcontrold.vcontrold.vcontrold.get_viessmann_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_viessmann_data()</span></code></a>. This will return the data as JSON, from all available commands.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">vcontrold</span> <span class="kn">import</span> <span class="n">vcontrold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="o">.</span><span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_viessmann_data</span><span class="p">()</span>
+<span class="go">{</span>
+<span class="go">    &quot;meta&quot;: {</span>
+<span class="go">        &quot;execution_time&quot;: &quot;4.187 seconds&quot;,</span>
+<span class="go">        &quot;num_items&quot;: 2</span>
+<span class="go">    },</span>
+<span class="go">    &quot;data&quot;: {</span>
+<span class="go">        &quot;getTempA&quot;: {</span>
+<span class="go">            &quot;value&quot;: 3.0,</span>
+<span class="go">            &quot;unit&quot;: &quot;C&quot;,</span>
+<span class="go">            &quot;description&quot;: &quot;Ermittle die Aussentemperatur&quot;,</span>
+<span class="go">            &quot;state&quot;: &quot;success&quot;,</span>
+<span class="go">            &quot;execution_time&quot;: &quot;2.094 seconds&quot;</span>
+<span class="go">        },</span>
+<span class="go">        &quot;getTempKist&quot;: {</span>
+<span class="go">            &quot;value&quot;: 65.8,</span>
+<span class="go">            &quot;unit&quot;: &quot;C&quot;,</span>
+<span class="go">            &quot;description&quot;: &quot;Ermittle die Kesseltemperatur&quot;,</span>
+<span class="go">            &quot;state&quot;: &quot;success&quot;,</span>
+<span class="go">            &quot;execution_time&quot;: &quot;2.094 seconds&quot;</span>
+<span class="go">        }</span>
+<span class="go">        ...</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>When you call <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.get_viessmann_data" title="vcontrold.vcontrold.vcontrold.get_viessmann_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_viessmann_data()</span></code></a>, it first creates a dynamic list of all commands, that shall be processed, based on the group filter (<a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.groups" title="vcontrold.vcontrold.vcontrold.groups"><code class="xref py py-attr docutils literal notranslate"><span class="pre">groups</span></code></a>) and the <code class="docutils literal notranslate"><span class="pre">status</span></code> of the command (refer to the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a>). When the list is created, all commands in this list will be processed sequentially.</p>
+<p>Each command needs approximately 2 seconds to complete. It may be different for your heating controld system. The return data contains the time to complete as <code class="docutils literal notranslate"><span class="pre">execution_time</span></code> for each command and for the whole process. If you’re not interested in this data, you can exclude the timers with <code class="docutils literal notranslate"><span class="pre">exclude_timers=True</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">vcontrold</span> <span class="kn">import</span> <span class="n">vcontrold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="o">.</span><span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">exclude_timers</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_viessmann_data</span><span class="p">()</span>
+<span class="go">{</span>
+<span class="go">    &quot;meta&quot;: {</span>
+<span class="go">        &quot;num_items&quot;: 1</span>
+<span class="go">    },</span>
+<span class="go">    &quot;data&quot;: {</span>
+<span class="go">        &quot;getBetriebArtM1&quot;: {</span>
+<span class="go">            &quot;value&quot;: &quot;H+WW&quot;,</span>
+<span class="go">            &quot;unit&quot;: &quot;str&quot;,</span>
+<span class="go">            &quot;description&quot;: &quot;Betriebsart M1&quot;,</span>
+<span class="go">            &quot;state&quot;: &quot;success&quot;</span>
+<span class="go">        }</span>
+<span class="go">        ...</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</section>
+<section id="limit-the-amount-of-returned-data">
+<h2>Limit the amount of returned data<a class="headerlink" href="#limit-the-amount-of-returned-data" title="Permalink to this headline">¶</a></h2>
+<p>For testing purposes you might want to limit the number of commands, as each command requires <em>n</em> seconds to complete. Therefore you can specify <code class="docutils literal notranslate"><span class="pre">get_viessmann_data(max_values=1)</span></code>, to limit the number of processed commands.</p>
+<p><code class="docutils literal notranslate"><span class="pre">max_values</span></code> will return all commands, if <code class="docutils literal notranslate"><span class="pre">0</span></code> is provided (kind of <em>any</em>). If the number of <code class="docutils literal notranslate"><span class="pre">max_values</span></code> is greater than the number of commands in the dynamic list, the dynamic list is used instead.</p>
+</section>
+<section id="group-filter">
+<h2>Group Filter<a class="headerlink" href="#group-filter" title="Permalink to this headline">¶</a></h2>
+<p>As you may not always want to process all commands (it takes quite a long time), you can query specific commands by using the assigned groups. Each (<code class="docutils literal notranslate"><span class="pre">get</span></code>-)command is assigned to one or more groups. By defining a group filter with <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.groups" title="vcontrold.vcontrold.vcontrold.groups"><code class="xref py py-attr docutils literal notranslate"><span class="pre">groups</span></code></a> you can limit the requested data to just a single or multiple group of commands.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">groups</span><span class="p">(</span><span class="s1">&#39;temperature&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_viessmann_data</span><span class="p">(</span><span class="n">max_values</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">{</span>
+<span class="go">    &quot;meta&quot;: {</span>
+<span class="go">        &quot;execution_time&quot;: &quot;4.186 seconds&quot;,</span>
+<span class="go">        &quot;num_items&quot;: 2</span>
+<span class="go">    },</span>
+<span class="go">    &quot;data&quot;: {</span>
+<span class="go">        &quot;getTempA&quot;: {</span>
+<span class="go">            &quot;value&quot;: 2.8,</span>
+<span class="go">            &quot;unit&quot;: &quot;C&quot;,</span>
+<span class="go">            &quot;description&quot;: &quot;Ermittle die Aussentemperatur&quot;,</span>
+<span class="go">            &quot;state&quot;: &quot;success&quot;,</span>
+<span class="go">            &quot;execution_time&quot;: &quot;2.095 seconds&quot;</span>
+<span class="go">        },</span>
+<span class="go">        &quot;getTempKist&quot;: {</span>
+<span class="go">            &quot;value&quot;: 67.5,</span>
+<span class="go">            &quot;unit&quot;: &quot;C&quot;,</span>
+<span class="go">            &quot;description&quot;: &quot;Ermittle die Kesseltemperatur&quot;,</span>
+<span class="go">            &quot;state&quot;: &quot;success&quot;,</span>
+<span class="go">            &quot;execution_time&quot;: &quot;2.091 seconds&quot;</span>
+<span class="go">        }</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>In this example, only commands, that are assigned to the group <code class="docutils literal notranslate"><span class="pre">temperature</span></code> are processed, limited to only 2 results by applying <code class="docutils literal notranslate"><span class="pre">max_values=2</span></code>. If you want to filter the command to more than one group, you need to provide a <code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> instead.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_viessmann_data</span><span class="p">()</span>
+<span class="go">{</span>
+<span class="go">    &quot;meta&quot;: {</span>
+<span class="go">        &quot;execution_time&quot;: &quot;61.205 seconds&quot;,</span>
+<span class="go">        &quot;num_items&quot;: 29</span>
+<span class="go">    },</span>
+<span class="go">    &quot;data&quot;: {</span>
+<span class="go">        &quot;getDevType&quot;: {</span>
+<span class="go">            &quot;value&quot;: &quot;V200KW1 ID=2094 Protokoll:KW&quot;,</span>
+<span class="go">            &quot;unit&quot;: &quot;str&quot;,</span>
+<span class="go">            &quot;description&quot;: &quot;Ermittle Device Typ der Anlage&quot;,</span>
+<span class="go">            &quot;state&quot;: &quot;success&quot;,</span>
+<span class="go">            &quot;execution_time&quot;: &quot;2.093 seconds&quot;</span>
+<span class="go">        },</span>
+<span class="go">        &quot;getError0&quot;: {</span>
+<span class="go">        &quot;value&quot;: {</span>
+<span class="go">            &quot;parsed&quot;: {</span>
+<span class="go">                &quot;date&quot;: &quot;2016-12-29&quot;,</span>
+<span class="go">                &quot;time&quot;: &quot;13:34:56&quot;,</span>
+<span class="go">                &quot;errorMessage&quot;: &quot;Brennerstoerung (D1)&quot;</span>
+<span class="go">            },</span>
+<span class="go">            &quot;original&quot;: &quot;2016-12-29T13:34:56+0100 Brennerstoerung (D1)&quot;</span>
+<span class="go">        },</span>
+<span class="go">        &quot;unit&quot;: null,</span>
+<span class="go">        &quot;description&quot;: &quot;Ermittle Fehlerhistory Eintrag 1&quot;,</span>
+<span class="go">        &quot;state&quot;: &quot;success&quot;,</span>
+<span class="go">        &quot;execution_time&quot;: &quot;2.131 seconds&quot;</span>
+<span class="go">    },</span>
+<span class="go">        ...</span>
+<span class="go">        &quot;getSystemTime&quot;: {</span>
+<span class="go">            &quot;value&quot;: &quot;2022-01-16 - 14:35:01&quot;,</span>
+<span class="go">            &quot;unit&quot;: &quot;datetime&quot;,</span>
+<span class="go">            &quot;description&quot;: &quot;Ermittle Systemzeit&quot;,</span>
+<span class="go">            &quot;state&quot;: &quot;success&quot;,</span>
+<span class="go">            &quot;execution_time&quot;: &quot;2.127 seconds&quot;</span>
+<span class="go">        },</span>
+<span class="go">        &quot;getTempA&quot;: {</span>
+<span class="go">            &quot;value&quot;: 2.9,</span>
+<span class="go">            &quot;unit&quot;: &quot;C&quot;,</span>
+<span class="go">            &quot;description&quot;: &quot;Ermittle die Aussentemperatur&quot;,</span>
+<span class="go">            &quot;state&quot;: &quot;success&quot;,</span>
+<span class="go">            &quot;execution_time&quot;: &quot;2.092 seconds&quot;</span>
+<span class="go">        },</span>
+<span class="go">        ...</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>If you want to reset the group filter, you can either create a new instance, or, preferably, use <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.unset_group" title="vcontrold.vcontrold.vcontrold.unset_group"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unset_group()</span></code></a> to just reset everything back to <em>any</em>.</p>
+</section>
+<section id="receive-groups-and-commands-from-configuration">
+<h2>Receive <em>groups</em> and <em>commands</em> from configuration<a class="headerlink" href="#receive-groups-and-commands-from-configuration" title="Permalink to this headline">¶</a></h2>
+<p>To modifiy the groups within <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code>, you need to get an overview of all existing groups. This can be achieved by using <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.get_groups" title="vcontrold.vcontrold.vcontrold.get_groups"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_groups()</span></code></a>. This returns a <code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of all existing groups.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="o">.</span><span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_groups</span><span class="p">()</span>
+<span class="go">[&#39;burner&#39;, &#39;environment&#39;, &#39;error&#39;, &#39;mixer&#39;, &#39;operation-mode&#39;, &#39;power&#39;, &#39;pumps&#39;, &#39;solar&#39;, &#39;stats&#39;, &#39;system&#39;, &#39;temperature&#39;, &#39;timer&#39;]</span>
+</pre></div>
+</div>
+<p>The list of groups can be modified, as needed. Refer to the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> for more information.</p>
+<p>However, usually you’ll want to know, which commands are assigned to which groups. This information can be received with <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.get_items_per_group" title="vcontrold.vcontrold.vcontrold.get_items_per_group"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_items_per_group()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_items_per_group</span><span class="p">()</span>
+<span class="go">{</span>
+<span class="go">    &quot;burner&quot;: {</span>
+<span class="go">        &quot;num_items&quot;: 4,</span>
+<span class="go">        &quot;items&quot;: [</span>
+<span class="go">            &quot;getBrennerStarts&quot;,</span>
+<span class="go">            &quot;getBrennerStatus&quot;,</span>
+<span class="go">            &quot;getBrennerStunden1&quot;,</span>
+<span class="go">            &quot;getBrennerStunden2&quot;</span>
+<span class="go">        ]</span>
+<span class="go">    },</span>
+<span class="go">    &quot;environment&quot;: {</span>
+<span class="go">        &quot;num_items&quot;: 4,</span>
+<span class="go">        &quot;items&quot;: [</span>
+<span class="go">            &quot;getNeigungM1&quot;,</span>
+<span class="go">            &quot;getNeigungM2&quot;,</span>
+<span class="go">            &quot;getNiveauM1&quot;,</span>
+<span class="go">            &quot;getNiveauM2&quot;</span>
+<span class="go">        ]</span>
+<span class="go">    },</span>
+<span class="go">    ...</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>The returned <code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code> contains all groups and which commands are currently assigned to the group. It basically reflects the contents of the <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code>.</p>
+</section>
+<section id="device-filter">
+<h2>Device Filter<a class="headerlink" href="#device-filter" title="Permalink to this headline">¶</a></h2>
+<p>The device filter works almost in the same way like the group filter. In the <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code> you will find a <code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of <code class="docutils literal notranslate"><span class="pre">devices</span></code> for each command. Not each heating control system supports the same commands. Some command are only available for specific systems. Therefore, there is a filter applied internally, to only process commands on the devices (or <em>device IDs</em>), for which they’re available.</p>
+<p>I assume, that everyone of us has only one heating controld system. So you can just identify your own device ID with <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.device_id" title="vcontrold.vcontrold.vcontrold.device_id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device_id</span></code></a> and do a search’n’replace within <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code> (refer to the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a>).</p>
+<p>My approach is to pre-define as much as possible here. If I will get a verified list of commands, that are available on other device IDs as well, I will pre-define more device IDs here. Feel free to open an issue or send me the information vial mail.</p>
+</section>
+<section id="units-of-measurement">
+<h2>Units of measurement<a class="headerlink" href="#units-of-measurement" title="Permalink to this headline">¶</a></h2>
+<p>Units are currently pre-defined within <code class="docutils literal notranslate"><span class="pre">vcontrold_config.yml</span></code>. Each type of unit results in another data type and unit of measurement. For now you can only use the pre-defined units. In the future there may be a chance to provide a callback function, to handle the sanitization on your own. But for now <a href="#id1"><span class="problematic" id="id2">:py:module:`.vcontrold`</span></a> is not yet advanced enough. The priority for such an implementation will be based on the feedback.</p>
+<p>However, you can receive a <code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code> of the currently available units with <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.get_units" title="vcontrold.vcontrold.vcontrold.get_units"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_units()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_units</span><span class="p">()</span>
+<span class="go">[&#39;error&#39;, &#39;hours&#39;, &#39;none&#39;, &#39;number&#39;, &#39;percent&#39;, &#39;power&#39;, &#39;shift&#39;, &#39;slope&#39;, &#39;switch&#39;, &#39;temperature&#39;, &#39;text&#39;, &#39;time&#39;, &#39;timer&#39;]</span>
+</pre></div>
+</div>
+<p>The meaning of each unit is described within the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a>.</p>
+</section>
+<section id="get-informational-output">
+<h2>Get informational output<a class="headerlink" href="#get-informational-output" title="Permalink to this headline">¶</a></h2>
+<p>While creating an instance of <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold" title="vcontrold.vcontrold.vcontrold"><code class="xref py py-class docutils literal notranslate"><span class="pre">vcontrold</span></code></a>, you can control whether to log informational output or not, by defining <code class="docutils literal notranslate"><span class="pre">log_info=True</span></code>. If you run this module for the first time, I recommend to use it. It helps to better understand what happens underneath. Additionally, processing commands can take a while. With informational output you will see, that there is still something happening.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span> <span class="o">=</span> <span class="n">vcontrold</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">3002</span><span class="p">,</span> <span class="n">log_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;temperature&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vcd</span><span class="o">.</span><span class="n">get_viessmann_data</span><span class="p">(</span><span class="n">max_values</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">Failed to identify heating control system. Returned data doesn&#39;t meet expectations. Attempt 1 of 3</span>
+<span class="go">Device correctly identified as model V200KW1 (ID=2094, Protocol=KW) at attempt 2 of 3</span>
+<span class="go">Limited the maximum returned values to 2.</span>
+<span class="go">Executing command 02 of 02 (getTempKist)...</span>
+<span class="go">-------------------------------</span>
+<span class="go">{</span>
+<span class="go">    &quot;meta&quot;: {</span>
+<span class="go">        &quot;execution_time&quot;: &quot;4.187 seconds&quot;,</span>
+<span class="go">        &quot;num_items&quot;: 2</span>
+<span class="go">    },</span>
+<span class="go">    &quot;data&quot;: {</span>
+<span class="go">        &quot;getTempA&quot;: {</span>
+<span class="go">            &quot;value&quot;: 2.9,</span>
+<span class="go">            &quot;unit&quot;: &quot;C&quot;,</span>
+<span class="go">            &quot;description&quot;: &quot;Ermittle die Aussentemperatur&quot;,</span>
+<span class="go">            &quot;state&quot;: &quot;success&quot;,</span>
+<span class="go">            &quot;execution_time&quot;: &quot;2.093 seconds&quot;</span>
+<span class="go">        },</span>
+<span class="go">        &quot;getTempKist&quot;: {</span>
+<span class="go">            &quot;value&quot;: 71.4,</span>
+<span class="go">            &quot;unit&quot;: &quot;C&quot;,</span>
+<span class="go">            &quot;description&quot;: &quot;Ermittle die Kesseltemperatur&quot;,</span>
+<span class="go">            &quot;state&quot;: &quot;success&quot;,</span>
+<span class="go">            &quot;execution_time&quot;: &quot;2.094 seconds&quot;</span>
+<span class="go">        }</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</section>
+<section id="output-formats">
+<h2>Output formats<a class="headerlink" href="#output-formats" title="Permalink to this headline">¶</a></h2>
+<p>The data can be returned in multiple formats. As of version 1.0.0 they are</p>
+<ul class="simple">
+<li><p>json (Default)</p></li>
+<li><p>dict</p></li>
+<li><p>csv</p></li>
+</ul>
+<p>You can define the output format with <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.output_format" title="vcontrold.vcontrold.vcontrold.output_format"><code class="xref py py-attr docutils literal notranslate"><span class="pre">output_format</span></code></a>, i.e. <code class="docutils literal notranslate"><span class="pre">.output_format=&quot;dict&quot;</span></code>.</p>
+<p>To be honest, I don’t think, that it makes much sense to differ between JSON and <code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>. And CSV is very unlikely and it’s hard to convert the data structure within CSV. Therefore, CSV will be removed in future versions.</p>
+<p>I’m thinking about removing the option to differ between output formats and just return the data as <code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code>. If other formats are necessary, you can convert the data on your own. If there are requests for specific formats in the future, let me know and then we can discuss things.</p>
+</section>
+<section id="other-options">
+<h2>Other options<a class="headerlink" href="#other-options" title="Permalink to this headline">¶</a></h2>
+<p>There are a few more options available, that you can define after creating an instance of <a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold" title="vcontrold.vcontrold.vcontrold"><code class="xref py py-class docutils literal notranslate"><span class="pre">vcontrold</span></code></a>.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.device_model" title="vcontrold.vcontrold.vcontrold.device_model"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device_model</span></code></a>: Returns the device ID by processing <code class="docutils literal notranslate"><span class="pre">getDevType</span></code> command.</p></li>
+<li><p><a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.device_id" title="vcontrold.vcontrold.vcontrold.device_id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device_id</span></code></a>: Returns the device ID by processing <code class="docutils literal notranslate"><span class="pre">getDevType</span></code> command.</p></li>
+<li><p><a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.device_protocol" title="vcontrold.vcontrold.vcontrold.device_protocol"><code class="xref py py-attr docutils literal notranslate"><span class="pre">device_protocol</span></code></a>: Returns the device ID by processing <code class="docutils literal notranslate"><span class="pre">getDevType</span></code> command.</p></li>
+<li><p><a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.switch_as_bool" title="vcontrold.vcontrold.vcontrold.switch_as_bool"><code class="xref py py-attr docutils literal notranslate"><span class="pre">switch_as_bool</span></code></a> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code>): If <code class="docutils literal notranslate"><span class="pre">True</span></code> (Default) commands with unit <code class="docutils literal notranslate"><span class="pre">switch</span></code> return their values as <code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code>. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, they are returned as <code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code> <em>on</em>/<em>off</em>.</p></li>
+<li><p><a class="reference internal" href="vcontrold.html#vcontrold.vcontrold.vcontrold.use_fahrenheit" title="vcontrold.vcontrold.vcontrold.use_fahrenheit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">use_fahrenheit</span></code></a> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code>): If <code class="docutils literal notranslate"><span class="pre">True</span></code>, returned temperature values are converted from <em>Celsius</em> to <em>Fahrenheit</em>. If <code class="docutils literal notranslate"><span class="pre">False</span></code> (Default), temperatures are returned as <em>Celsius</em>.</p></li>
+</ul>
+<p>If you need more usage examples, just let me know.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Documentation</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vcontrold.html">vcontrold package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+  <h3><a href="index.html">Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Usage</a><ul>
+<li><a class="reference internal" href="#quickstart">Quickstart</a></li>
+<li><a class="reference internal" href="#limit-the-amount-of-returned-data">Limit the amount of returned data</a></li>
+<li><a class="reference internal" href="#group-filter">Group Filter</a></li>
+<li><a class="reference internal" href="#receive-groups-and-commands-from-configuration">Receive <em>groups</em> and <em>commands</em> from configuration</a></li>
+<li><a class="reference internal" href="#device-filter">Device Filter</a></li>
+<li><a class="reference internal" href="#units-of-measurement">Units of measurement</a></li>
+<li><a class="reference internal" href="#get-informational-output">Get informational output</a></li>
+<li><a class="reference internal" href="#output-formats">Output formats</a></li>
+<li><a class="reference internal" href="#other-options">Other options</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="pyvcontrold-net"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyvcontrold-net 2.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Usage</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, tsvsj
+    </div>
+  </body>
+</html>
