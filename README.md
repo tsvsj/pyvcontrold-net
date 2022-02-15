@@ -10,6 +10,8 @@
 
 This is a simple library to interact with vcontrold ([@openv/vcontrold](https://github.com/openv/vcontrold)), the open-source daemon to communicate with Viessmann Vitotronic via Optolink. Documentation for vcontrold itself can be found at [@openv/openv Wiki](https://github.com/openv/openv/wiki).
 
+> :information_source: Please check out [pyvcontrol](https://github.com/joppi588/pyvcontrol) as well. This package supports direct communication via Optolink, instead of using vcontrold as middleware.
+
 ------
 ## Installation
 
